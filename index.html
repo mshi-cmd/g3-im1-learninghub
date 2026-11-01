@@ -2,9 +2,7 @@
 <html lang="zh-Hant">
 
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>G3 IM1 我的家人和朋友</title>
@@ -13,31 +11,71 @@
 
 body{
 font-family:"Microsoft JhengHei",sans-serif;
+margin:0;
 background:#f5f7fb;
-padding:30px;
+}
+
+header{
+background:#4A90E2;
+color:white;
+padding:20px;
 text-align:center;
 }
 
-h1{
-color:#4A90E2;
+nav{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+padding:15px;
+background:white;
+}
+
+nav button{
+padding:10px 15px;
+border:none;
+border-radius:8px;
+background:#4A90E2;
+color:white;
+cursor:pointer;
+}
+
+.page{
+display:none;
+padding:20px;
+max-width:1000px;
+margin:auto;
+}
+
+.active{
+display:block;
 }
 
 .card{
 background:white;
 padding:20px;
+margin:15px 0;
 border-radius:12px;
-max-width:600px;
-margin:auto;
-box-shadow:0 2px 10px rgba(0,0,0,.1);
+box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
 
-button{
-padding:10px 15px;
-background:#4A90E2;
-color:white;
-border:none;
+.word{
+font-size:28px;
+font-weight:bold;
+color:#2c3e50;
+}
+
+.sentence{
+background:white;
+padding:12px;
+margin:10px 0;
 border-radius:8px;
-cursor:pointer;
+font-size:22px;
+}
+
+.done{
+color:green;
+font-weight:bold;
 }
 
 </style>
@@ -46,32 +84,204 @@ cursor:pointer;
 
 <body>
 
+<header>
+
 <h1>🌟 G3 IM1 我的家人和朋友</h1>
+
+<p>翻轉學習站</p>
+
+</header>
+
+<nav>
+
+<button onclick="showPage('page1')">
+📖 詞語學習
+</button>
+
+<button onclick="showPage('page2')">
+🎮 詞語挑戰
+</button>
+
+<button onclick="showPage('page3')">
+📚 課文朗讀
+</button>
+
+<button onclick="showPage('page4')">
+📌 我的複習詞語
+</button>
+
+</nav>
+
+<!-- PAGE 1 -->
+
+<div id="page1" class="page active">
+
+<h2>📖 詞語學習</h2>
 
 <div class="card">
 
-<h2>詞語學習</h2>
-
-<h3>聰明</h3>
+<div class="word">聰明</div>
 
 <p>拼音：cōng míng</p>
 
 <p>意思：很會思考。</p>
 
-<button onclick="speakWord()">
+<button onclick="speakWord('聰明')">
 
-🔊 聽發音
+🔊 發音
 
 </button>
 
 </div>
 
+<div class="card">
+
+<div class="word">強壯</div>
+
+<p>拼音：qiáng zhuàng</p>
+
+<p>意思：身體很有力氣。</p>
+
+<button onclick="speakWord('強壯')">
+
+🔊 發音
+
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="word">福氣</div>
+
+<p>拼音：fú qì</p>
+
+<p>意思：幸福和幸運。</p>
+
+<button onclick="speakWord('福氣')">
+
+🔊 發音
+
+</button>
+
+</div>
+
+</div>
+
+<!-- PAGE 2 -->
+
+<div id="page2" class="page">
+
+<h2>🎮 詞語挑戰</h2>
+
+<div class="card">
+
+<h3>拼音配對</h3>
+
+<p>聰明 → cōng míng</p>
+
+<p>強壯 → qiáng zhuàng</p>
+
+<p>福氣 → fú qì</p>
+
+</div>
+
+</div>
+
+<!-- PAGE 3 -->
+
+<div id="page3" class="page">
+
+<h2>📚 我的大表哥</h2>
+
+<div class="card">
+
+<button onclick="readStory(1)">
+▶️ 1倍速朗讀
+</button>
+
+<button onclick="readStory(1.5)">
+🚀 1.5倍速朗讀
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>🎤 跟讀挑戰</h3>
+
+<p id="targetSentence">
+我有一個大表哥
+</p>
+
+<button onclick="startRecognition()">
+
+🎙️ 開始跟讀
+
+</button>
+
+<p id="status"></p>
+
+<p id="score"></p>
+
+</div>
+
+<div id="reading">
+
+<div id="s1" class="sentence">
+我有一個大表哥。
+</div>
+
+<div id="s2" class="sentence">
+他姓陳，名叫樂聰。
+</div>
+
+<div id="s3" class="sentence">
+就是快樂、聰明的意思。
+</div>
+
+<div id="s4" class="sentence">
+大表哥今年二十一歲。
+</div>
+
+<div id="s5" class="sentence">
+比我大十二歲。
+</div>
+
+</div>
+
+</div>
+
+<!-- PAGE 4 -->
+
+<div id="page4" class="page">
+
+<h2>📌 我的複習詞語</h2>
+
+<ul id="reviewList">
+
+<li>目前沒有需要複習的詞語</li>
+
+</ul>
+
+</div>
+
 <script>
 
-function speakWord(){
+function showPage(id){
+
+document.querySelectorAll('.page')
+.forEach(page=>page.classList.remove('active'));
+
+document.getElementById(id)
+.classList.add('active');
+
+}
+
+function speakWord(word){
 
 let speech =
-new SpeechSynthesisUtterance("聰明");
+new SpeechSynthesisUtterance(word);
 
 speech.lang="zh-TW";
 
@@ -79,8 +289,41 @@ speechSynthesis.speak(speech);
 
 }
 
+const lessonSentences = [
+
+"我有一個大表哥",
+"他姓陳名叫樂聰",
+"就是快樂聰明的意思",
+"大表哥今年二十一歲",
+"比我大十二歲"
+
+];
+
+let currentSentence=0;
+
+function readStory(speed){
+
+let story =
+lessonSentences.join("。");
+
+let speech =
+new SpeechSynthesisUtterance(story);
+
+speech.lang="zh-TW";
+
+speech.rate=speed;
+
+speechSynthesis.speak(speech);
+
+}
+
+function startRecognition(){
+
+alert("下一版加入完整語音評分");
+
+}
+
 </script>
 
 </body>
-
 </html>
