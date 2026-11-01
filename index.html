@@ -214,10 +214,12 @@ font-weight:bold;
 我有一個大表哥
 </p>
 
-<button onclick="startRecognition()">
+<button onclick="readCurrentSentence()">
+🔊 聽老師讀
+</button>
 
-🎙️ 開始跟讀
-
+<button onclick="nextSentence()">
+✅ 我讀完了
 </button>
 
 <p id="status"></p>
@@ -439,65 +441,34 @@ speechSynthesis.speak(speech);
 
 let reviewWords = new Set();
 
-function startRecognition(){
+function readCurrentSentence(){
 
-const SpeechRecognition =
-window.SpeechRecognition ||
-window.webkitSpeechRecognition;
-
-if(!SpeechRecognition){
-
-alert("請使用 Chrome 瀏覽器");
-
-return;
-
-}
-
-const recognition =
-new SpeechRecognition();
-
-recognition.lang = "zh-TW";
-
-recognition.interimResults = false;
-
-recognition.maxAlternatives = 1;
-
-document.getElementById("status")
-.innerHTML =
-"🎙️ 正在錄音...";
-
-recognition.start();
-
-recognition.onresult =
-function(event){
-
-const studentText =
-event.results[0][0].transcript
-.replace(/[，。！？、\s]/g,'');
-
-const targetText =
+let speech =
+new SpeechSynthesisUtterance(
 lessonSentences[currentSentence]
-.replace(/[，。！？、\s]/g,'');
-
-let score = calculateScore(
-studentText,
-targetText
 );
 
-document.getElementById("score")
-.innerHTML =
-"⭐ 評分：" + score + "%";
+speech.lang="zh-CN";
 
-if(score >= 80){
+speech.rate=1;
 
-document.getElementById("status")
-.innerHTML =
-"✅ 通過";
+speechSynthesis.speak(speech);
 
+}
+  function nextSentence(){
+
+let currentBlock =
 document.getElementById(
 "s"+(currentSentence+1)
-)
-.classList.add("done");
+);
+
+if(currentBlock){
+
+currentBlock.classList.add(
+"done"
+);
+
+}
 
 currentSentence++;
 
@@ -516,131 +487,11 @@ lessonSentences[currentSentence];
 document.getElementById(
 "targetSentence"
 ).innerHTML =
-"🎉 全部完成！";
+"🎉 全部完成";
 
 }
 
-}else{
-
-document.getElementById("status")
-.innerHTML =
-"❌ 再試一次";
-
-findErrorWords(
-studentText,
-targetText
-);
-
 }
-
-};
-
-}
-function calculateScore(student,target){
-
-let count = 0;
-
-for(let char of target){
-
-if(student.includes(char)){
-count++;
-}
-
-}
-
-return Math.round(
-(count / target.length) * 100
-);
-
-}
-
-function findErrorWords(student,target){
-
-const keywords = [
-
-"大表哥",
-"樂聰",
-"強壯",
-"福氣",
-"問題",
-"後退",
-"願望",
-"科學家",
-"相信",
-"胖胖的"
-
-];
-
-keywords.forEach(word=>{
-
-if(
-target.includes(word)
-&&
-!student.includes(word)
-){
-
-reviewWords.add(word);
-
-}
-
-});
-
-updateReviewList();
-
-}
-
-function updateReviewList(){
-
-const list =
-document.getElementById("reviewList");
-
-if(reviewWords.size===0){
-
-list.innerHTML =
-"<li>目前沒有需要複習的詞語</li>";
-
-return;
-
-}
-
-list.innerHTML = "";
-
-reviewWords.forEach(word=>{
-
-let li =
-document.createElement("li");
-
-li.textContent = word;
-
-list.appendChild(li);
-
-});
-
-}
-  document
-.querySelectorAll(".sentence")
-.forEach(item=>{
-
-item.addEventListener(
-"click",
-function(){
-
-let speech =
-new SpeechSynthesisUtterance(
-this.innerText
-);
-
-speech.lang="zh-CN";
-
-speechSynthesis.speak(
-speech
-);
-
-}
-
-);
-
-});
 </script>
 
 </body>
