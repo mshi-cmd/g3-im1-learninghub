@@ -219,9 +219,23 @@ font-weight:bold;
 🔊 聽老師讀
 </button>
 
+<button onclick="startRecording()">
+🎤 開始錄音
+</button>
+
+<button onclick="stopRecording()">
+⏹️ 停止錄音
+</button>
+
+<button onclick="playRecording()">
+▶️ 播放我的聲音
+</button>
+
 <button onclick="nextSentence()">
 ✅ 我讀完了
 </button>
+
+<p id="recordStatus"></p>
 
 <p id="status"></p>
 
@@ -368,7 +382,7 @@ function speakWord(word){
 let speech =
 new SpeechSynthesisUtterance(word);
 
-speech.lang="zh-CN";
+speech.lang="zh-TW";
 
 speechSynthesis.speak(speech);
 
@@ -449,7 +463,7 @@ new SpeechSynthesisUtterance(
 lessonSentences[currentSentence]
 );
 
-speech.lang="zh-CN";
+speech.lang="zh-TW";
 
 speech.rate=1;
 
@@ -506,7 +520,7 @@ new SpeechSynthesisUtterance(
 this.innerText
 );
 
-speech.lang="zh-CN";
+speech.lang="zh-TW";
 
 speech.rate=1;
 
@@ -522,6 +536,81 @@ speech
 
 });  
 </script>
+let mediaRecorder;
 
+let audioChunks = [];
+
+let audioBlob;
+
+let audioUrl;
+
+async function startRecording(){
+
+const stream =
+await navigator.mediaDevices.getUserMedia({
+audio:true
+});
+
+mediaRecorder =
+new MediaRecorder(stream);
+
+audioChunks = [];
+
+mediaRecorder.ondataavailable =
+event => {
+
+audioChunks.push(event.data);
+
+};
+
+mediaRecorder.start();
+
+document.getElementById(
+"recordStatus"
+).innerHTML =
+"🎙️ 正在錄音...";
+
+}
+
+function stopRecording(){
+
+mediaRecorder.stop();
+
+mediaRecorder.onstop = () => {
+
+audioBlob =
+new Blob(
+audioChunks,
+{type:"audio/webm"}
+);
+
+audioUrl =
+URL.createObjectURL(audioBlob);
+
+document.getElementById(
+"recordStatus"
+).innerHTML =
+"✅ 錄音完成";
+
+};
+
+}
+
+function playRecording(){
+
+if(!audioUrl){
+
+alert("請先錄音");
+
+return;
+
+}
+
+const audio =
+new Audio(audioUrl);
+
+audio.play();
+
+}
 </body>
 </html>
