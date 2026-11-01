@@ -71,6 +71,7 @@ padding:12px;
 margin:10px 0;
 border-radius:8px;
 font-size:22px;
+cursor:pointer;
 }
 
 .done{
@@ -367,7 +368,7 @@ function speakWord(word){
 let speech =
 new SpeechSynthesisUtterance(word);
 
-speech.lang="zh-TW";
+speech.lang="zh-CN";
 
 speechSynthesis.speak(speech);
 
@@ -492,6 +493,34 @@ document.getElementById(
 }
 
 }
+document
+.querySelectorAll(".sentence")
+.forEach(item=>{
+
+item.addEventListener(
+"click",
+function(){
+
+let speech =
+new SpeechSynthesisUtterance(
+this.innerText
+);
+
+speech.lang="zh-CN";
+
+speech.rate=1;
+
+speechSynthesis.cancel();
+
+speechSynthesis.speak(
+speech
+);
+
+}
+
+);
+
+});  
 </script>
 
 </body>
