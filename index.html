@@ -645,6 +645,56 @@ new Audio(audioUrl);
 audio.play();
 
 }
+let currentReviewWord="";
+
+function showWord(
+word,
+pinyin,
+meaning
+){
+
+currentReviewWord = word;
+
+document.getElementById(
+"popupWord"
+).innerHTML = word;
+
+document.getElementById(
+"popupPinyin"
+).innerHTML = "拼音："+pinyin;
+
+document.getElementById(
+"popupMeaning"
+).innerHTML = meaning;
+
+document.getElementById(
+"wordPopup"
+).style.display="block";
+
+}
+
+function closePopup(){
+
+document.getElementById(
+"wordPopup"
+).style.display="none";
+
+}
+
+function addToReview(){
+
+reviewWords.add(
+currentReviewWord
+);
+
+updateReviewList();
+
+alert(
+currentReviewWord+
+" 已加入複習詞語"
+);
+
+}  
 </script>
 
 </body>
