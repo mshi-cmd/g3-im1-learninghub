@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>G3 IM1 我的家人和朋友</title>
+
+<style>
+
+body{
+font-family:"Microsoft JhengHei",sans-serif;
+background:#f5f7fb;
+padding:30px;
+text-align:center;
+}
+
+h1{
+color:#4A90E2;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:12px;
+max-width:600px;
+margin:auto;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+button{
+padding:10px 15px;
+background:#4A90E2;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🌟 G3 IM1 我的家人和朋友</h1>
+
+<div class="card">
+
+<h2>詞語學習</h2>
+
+<h3>聰明</h3>
+
+<p>拼音：cōng míng</p>
+
+<p>意思：很會思考。</p>
+
+<button onclick="speakWord()">
+
+🔊 聽發音
+
+</button>
+
+</div>
+
+<script>
+
+function speakWord(){
+
+let speech =
+new SpeechSynthesisUtterance("聰明");
+
+speech.lang="zh-TW";
+
+speechSynthesis.speak(speech);
+
+}
+
+</script>
+
+</body>
+
+</html>
