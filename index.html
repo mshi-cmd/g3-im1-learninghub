@@ -248,6 +248,88 @@ font-weight:bold;
 比我大十二歲。
 </div>
 
+<div id="s6" class="sentence">
+他的臉方方的。
+</div>
+
+<div id="s7" class="sentence">
+頭髮捲捲的。
+</div>
+
+<div id="s8" class="sentence">
+個子高高的。
+</div>
+
+<div id="s9" class="sentence">
+身體很強壯。
+</div>
+
+<div id="s10" class="sentence">
+大表哥是姑媽的兒子。
+</div>
+
+<div id="s11" class="sentence">
+姑媽叫他大福。
+</div>
+
+<div id="s12" class="sentence">
+叫我小福。
+</div>
+
+<div id="s13" class="sentence">
+姑媽為什麼這樣叫我們呢？
+</div>
+
+<div id="s14" class="sentence">
+因為我們都屬豬。
+</div>
+
+<div id="s15" class="sentence">
+小時候都長得胖胖的。
+</div>
+
+<div id="s16" class="sentence">
+姑媽說我們很有福氣。
+</div>
+
+<div id="s17" class="sentence">
+就給我們起了這樣的小名。
+</div>
+
+<div id="s18" class="sentence">
+大表哥很喜歡看科學書。
+</div>
+
+<div id="s19" class="sentence">
+經常考我一些奇怪的問題。
+</div>
+
+<div id="s20" class="sentence">
+什麼東西只能向前走，不能向後退？
+</div>
+
+<div id="s21" class="sentence">
+我想了半天也回答不出來。
+</div>
+
+<div id="s22" class="sentence">
+現在，大表哥快上大學了。
+</div>
+
+<div id="s23" class="sentence">
+他的願望是成為一名科學家。
+</div>
+
+<div id="s24" class="sentence">
+我相信，
+</div>
+
+<div id="s25" class="sentence">
+他只要努力學習，
+</div>
+
+<div id="s26" class="sentence">
+就一定能實現這個願望。
 </div>
 
 </div>
@@ -283,7 +365,7 @@ function speakWord(word){
 let speech =
 new SpeechSynthesisUtterance(word);
 
-speech.lang="zh-TW";
+speech.lang="zh-CN";
 
 speechSynthesis.speak(speech);
 
@@ -291,11 +373,53 @@ speechSynthesis.speak(speech);
 
 const lessonSentences = [
 
+const lessonSentences = [
+
 "我有一個大表哥",
 "他姓陳名叫樂聰",
 "就是快樂聰明的意思",
 "大表哥今年二十一歲",
-"比我大十二歲"
+"比我大十二歲",
+
+"他的臉方方的",
+"頭髮捲捲的",
+"個子高高的",
+"身體很強壯",
+
+"大表哥是姑媽的兒子",
+
+"姑媽叫他大福",
+"叫我小福",
+
+"姑媽為什麼這樣叫我們呢",
+
+"因為我們都屬豬",
+
+"小時候都長得胖胖的",
+
+"姑媽說我們很有福氣",
+
+"就給我們起了這樣的小名",
+
+"大表哥很喜歡看科學書",
+
+"經常考我一些奇怪的問題",
+
+"什麼東西只能向前走不能向後退",
+
+"我想了半天也回答不出來",
+
+"現在大表哥快上大學了",
+
+"他的願望是成為一名科學家",
+
+"我相信",
+
+"他只要努力學習",
+
+"就一定能實現這個願望"
+
+];
 
 ];
 
@@ -309,7 +433,7 @@ lessonSentences.join("。");
 let speech =
 new SpeechSynthesisUtterance(story);
 
-speech.lang="zh-TW";
+speech.lang="zh-CN";
 
 speech.rate=speed;
 
